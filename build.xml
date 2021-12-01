@@ -104,6 +104,7 @@
 								</if>
 							</then>
 							<else>
+								<echo>"@{currentDiff}"</echo>
 								<propertyregex
 									property="currentDiffWithoutSRC"
 									input="@{currentDiff}"
@@ -112,7 +113,7 @@
 									casesensitive="true" 
 									override="true"
 									defaultValue=""/>
-								<echo>Current Component : ${currentDiffWithoutSRC}</echo>
+								<echo>Current Component2 : ${currentDiffWithoutSRC}</echo>
 								<copy todir="${sf.deployDir}" verbose="false">
 									<fileset dir="src">
 										<include name="${currentDiffWithoutSRC}" />
