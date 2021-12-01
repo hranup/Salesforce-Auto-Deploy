@@ -108,6 +108,7 @@
 								<matches string="@{currentDiff}" pattern="src/layouts/"/>
 							<then>
 								<echo>Current Component2 : "@{currentDiff}"</echo>
+								<echo>"add replace src layouts with null</null>
 								<copy todir="${sf.deployDir}" verbose="false">
 									<fileset dir="src">
 										<include name="@{currentDiff}" />
@@ -119,7 +120,7 @@
 										<echo>Generating meta-xml : @{currentDiff}</echo>
 										<copy todir="${sf.deployDir}" verbose="false">
 											<fileset dir="src">
-												<include name="${currentDiffWithoutSRC}-meta.xml" />
+												<include name="@{currentDiff}-meta.xml" />
 											</fileset>
 										</copy>
 									</then>
