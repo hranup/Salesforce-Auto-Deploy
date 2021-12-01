@@ -105,7 +105,6 @@
 							</then>
 							<else>
 								<echo>"@{currentDiff}"</echo>
-								settings.IgnoreWhitespace = true
 								<propertyregex
 									property="currentDiffWithoutSRC"
 									input="@{currentDiff}"
