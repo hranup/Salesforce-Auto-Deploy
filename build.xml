@@ -45,7 +45,7 @@
 		<echo>Current GIT Commit : ${env.GIT_COMMIT}</echo>
 		<echo>Previous Known Successful GIT Commit : ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}</echo>
 		<gitDiff/>
-		<for list="${git.diff}" param="currentDiff" delimiter=\"Business Account Layout.layout-meta.xml\">
+		<for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
 			<sequential>
 				<echo>$currentDiff</echo>
 				<if>
