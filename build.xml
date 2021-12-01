@@ -48,7 +48,7 @@
 		<for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
 			<sequential>
 				
-				<echo>"${currentDiff}"</echo>
+				<echo>"@{currentDiff}"</echo>
 				<if>
 					<and>
 						<available file="@{currentDiff}"/>
