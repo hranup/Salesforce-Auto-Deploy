@@ -103,7 +103,7 @@
 									</then> 
 								</if>
 							</then>
-							<else>
+							<else-if>
 								
 								<matches string="@{currentDiff}" pattern="src/layouts/"/>
 							<then>
@@ -145,7 +145,7 @@
 									</insert>
 								</xmltask> 
 								</then>
-							</else>	
+							</else-if>	
 							<else>
 								<echo>"@{currentDiff}"</echo>
 								<propertyregex
