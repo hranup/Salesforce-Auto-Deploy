@@ -47,8 +47,6 @@
 		<gitDiff/>
 		<for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
 			<sequential>
-				
-				<echo>"@{currentDiff}"</echo>
 				<if>
 					<and>
 						<available file="@{currentDiff}"/>
@@ -103,61 +101,16 @@
 									</then> 
 								</if>
 							</then>
-							<elseif>
-								
-								<matches string="@{currentDiff}" pattern="src/layouts/"/>
-							<then>
-								<echo>Current Component2 : "@{currentDiff}"</echo>
-								<echo>"add replace src layouts with null</null>
-								<copy todir="${sf.deployDir}" verbose="false">
-									<fileset dir="src">
-										<include name="@{currentDiff}" />
-									</fileset>
-								</copy>
-								<if>
-									<available file="@{currentDiff}-meta.xml"/>
-									<then>
-										<echo>Generating meta-xml : @{currentDiff}</echo>
-										<copy todir="${sf.deployDir}" verbose="false">
-											<fileset dir="src">
-												<include name="@{currentDiff}-meta.xml" />
-											</fileset>
-										</copy>
-									</then>
-								</if>
-								<propertyregex
-									property="component"
-									input="@{currentDiff}"
-									regexp="src\/([a-zA-Z]*)\/[a-zA-Z0-9\/\.\_]*"
-									select="\1"
-									casesensitive="true" 
-									override="true"
-									defaultValue=""/>
-								<propertycopy property="packagedName" from="sf.${component}" override="true"/>
-								<echo>Generating Package.xml : ${component} with ${packagedName}</echo>
-								<xmltask source="${sf.deployDir}/package.xml" dest="${sf.deployDir}/package.xml">
-									<remove path="/Package/types[name/text()=${packagedName}]"/>
-									<insert path="//*[local-name()='Package']"> <![CDATA[
-		<types>
-		<name>${packagedName}</name>
-		<members>*</members>
-		</types>
-									]]>
-									</insert>
-								</xmltask> 
-								</then>
-							</elseif>	
 							<else>
-								<echo>"@{currentDiff}"</echo>
 								<propertyregex
 									property="currentDiffWithoutSRC"
 									input="@{currentDiff}"
-									regexp="src\/([a-zA-Z]*\/[a-zA-Z0-9\/\.\_]*)"
+									regexp="src\/([a-zA-Z$]*\/[a-zA-Z0-9 \/\.\_-]*)"
 									select="\1"
 									casesensitive="true" 
 									override="true"
 									defaultValue=""/>
-								<echo>Current Component2 : ${currentDiffWithoutSRC}</echo>
+								<echo>Current Component : ${currentDiffWithoutSRC}</echo>
 								<copy todir="${sf.deployDir}" verbose="false">
 									<fileset dir="src">
 										<include name="${currentDiffWithoutSRC}" />
@@ -318,7 +271,7 @@
 		</if>
     </target>
 
-	<target name="builderWithGitDiff" depends="diffBuilderWithGitCommit">
+	<target name="builderWithGitDiff" depends="diffBuilderWithGitCommit,deploy">
 		
     </target>
 	
